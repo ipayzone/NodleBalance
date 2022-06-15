@@ -1,0 +1,113 @@
+type Account @entity {
+  id: ID!
+  freeBalance: BigInt
+  reserveBalance: BigInt
+  totalBalance: BigInt
+  aid: BigInt!
+  atBlock: BigInt!
+}
+
+type AccountSnapshot @entity {
+  "id"
+  id: ID!
+
+  accountId: String!
+  snapshotAtBlock: BigInt!
+  freeBalance: BigInt!
+  reserveBalance: BigInt!
+  totalBalance: BigInt!
+}
+
+type Endowed @entity {
+  id: ID!
+
+  blockNumber: BigInt
+  accountId: String!
+  freeBalance: BigInt
+  reserveBalance: BigInt
+  totalBalance: BigInt
+  aid: BigInt!
+  timestamp: Date
+}
+type Transfer @entity {
+  id: ID!
+  blockNumber: BigInt
+
+  toAccountId: String!
+  fromAccountId: String!
+  balanceChange: BigInt
+  aid: BigInt!
+  timestamp: Date
+}
+
+type BalanceSet @entity {
+  id: ID!
+  blockNumber: BigInt
+  accountId: String!
+  aid: BigInt!
+  balanceChange: BigInt
+  timestamp: Date
+}
+
+type Deposit @entity {
+  id: ID!
+  blockNumber: BigInt
+  accountId: String!
+  aid: BigInt!
+  balanceChange: BigInt
+  timestamp: Date
+}
+
+type Reserved @entity {
+  id: ID!
+  blockNumber: BigInt
+  accountId: String!
+  aid: BigInt!
+  balanceChange: BigInt
+  timestamp: Date
+}
+
+type Unreserved @entity {
+  id: ID!
+  blockNumber: BigInt
+  accountId: String!
+  aid: BigInt!
+  balanceChange: BigInt
+  timestamp: Date
+}
+
+type Withdraw @entity {
+  id: ID!
+  blockNumber: BigInt
+  accountId: String!
+  aid: BigInt!
+  balanceChange: BigInt
+  timestamp: Date
+}
+
+type Slash @entity {
+  id: ID!
+  blockNumber: BigInt
+  accountId: String!
+  aid: BigInt!
+  balanceChange: BigInt
+  timestamp: Date
+}
+
+type ReservRepatriated @entity {
+  id: ID!
+  blockNumber: BigInt
+  toAccountId: String!
+  fromAccountId: String!
+  status: String
+  balanceChange: BigInt
+  aid: BigInt!
+  timestamp: Date
+}
+
+type IDGenerator @entity {
+  "id"
+  id: ID!
+  "asscending ID"
+  aID: BigInt!
+}

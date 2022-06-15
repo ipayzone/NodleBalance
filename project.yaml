@@ -1,0 +1,31 @@
+specVersion: 0.2.0
+name: NodleBalance
+version: 1.0.0
+runner:
+  node:
+    name: '@subql/node'
+    version: '>=1.0.0'
+  query:
+    name: '@subql/query'
+    version: '*'
+description: Nodle Balance Indexer
+repository: 'https://github.com/subquery/subql-starter'
+schema:
+  file: ./schema.graphql
+network:
+   endpoint: 'wss://nodle-parachain.api.onfinality.io/ws?apikey=9e5c1537-e0a7-42cb-a2ef-4d7d2899337f'
+   genesisHash: '0x97da7ede98d7bad4e36b4d734b6055425a3be036da2a332ea5a7037656427a21'
+   dictionary: 'https://api.subquery.network/sq/subquery/nodle-dictionary'
+
+  #genesisHash: '0x91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3'
+  #endpoint: 'wss://polkadot.api.onfinality.io/public-ws'
+  #dictionary: 'https://api.subquery.network/sq/subquery/dictionary-polkadot'
+dataSources:
+  - kind: substrate/Runtime
+    startBlock: 399000
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: substrate/BlockHandler
+       
