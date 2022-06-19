@@ -11,7 +11,7 @@ import { ReservRepatriated } from "../types/models/ReservRepatriated";
 import { AccountInfo, EventRecord } from "@polkadot/types/interfaces/system";
 import { Account, AccountSnapshot, Endowed } from "../types";
 
-const enableTakeAccountSnapshot: boolean = false;
+const enableTakeAccountSnapshot: boolean = true;
 
 class AccountInfoAtBlock {
   accountId: string;
@@ -81,20 +81,29 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
           break;
       }
 
+  
       for (const a of accounts) {
         if (accounts4snapshot.length > 0 && accounts4snapshot.indexOf(a) > -1) {
-          continue;
+          
+		  continue;
+		
         }
-        accounts4snapshot.push(a);
+		
+        accounts4snapshot.push(a);  
       }
+	  
     }
   }
 
   if (enableTakeAccountSnapshot === true) {
+	  
+	  
     if (accounts4snapshot && accounts4snapshot.length > 0) {
+	
       await takeAccountSnapshot(blockNumber, accounts4snapshot);
     }
   }
+ 
 }
 
 /**
@@ -107,6 +116,7 @@ async function takeAccountSnapshot(
   blockNumber: bigint,
   accounts4snapshot: string[]
 ) {
+	
   for (const accountId of accounts4snapshot) {
     let accountInfo: AccountInfoAtBlock = await getAccountInfoAtBlockNumber(
       accountId,
@@ -116,6 +126,7 @@ async function takeAccountSnapshot(
     let snapshotRecords = await AccountSnapshot.get(id);
 
     if (!snapshotRecords) {
+		
       let newSnapshot: AccountSnapshot = AccountSnapshot.create({
         id: id,
         accountId: accountId,
@@ -129,6 +140,7 @@ async function takeAccountSnapshot(
 
     let accountRecord = await Account.get(accountId);
     if (!accountRecord) {
+		
       accountRecord = Account.create({
         id: accountId,
         atBlock: blockNumber,
@@ -139,6 +151,7 @@ async function takeAccountSnapshot(
       });
       await accountRecord.save();
     } else {
+
       accountRecord.atBlock = blockNumber;
       accountRecord.freeBalance = accountInfo.freeBalance;
       accountRecord.reserveBalance = accountInfo.reserveBalance;
@@ -351,6 +364,9 @@ export const handleDeposit = async (
   deposit.balanceChange = BigInt(balance);
   deposit.timestamp = block.timestamp;
 
+ logger.info(
+        `JCV: Balance:`  + balance
+      );
   await deposit.save();
   return [accountToSet];
 };
