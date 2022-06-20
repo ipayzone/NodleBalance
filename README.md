@@ -1,3 +1,15 @@
+Branched from project
+https://explorer.subquery.network/subquery/bianyunjian/polkadot-balance-indexer
+Started Nodle block 1
+Part of the Polkadot North America Hackathon
+https://polkadot-na.devpost.com/?ref_feature=challenge&ref_medium=discover
+
+Point of Sale device for accepting Nodle. 
+Use Subquery for obtaining the balance and detecting when payment has been made.
+
+
+
+
 # SubQuery - Starter Package
 
 
